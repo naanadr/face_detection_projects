@@ -9,9 +9,9 @@ import re
 def train_test_index(models_path):
     len_models = len(models_path)
 
-    teste_model_index = [x for x in random.sample(range(len_models), 7)]
-    train_model_index = [x for x in range(len_models)
-                         if x not in teste_model_index]
+    train_model_index = [x for x in random.sample(range(len_models), 7)]
+    teste_model_index = [x for x in range(len_models)
+                         if x not in train_model_index]
 
     return sorted(teste_model_index), sorted(train_model_index)
 
@@ -37,11 +37,11 @@ def get_labels(paths, index):
             image = str(image)
             pos = labels_dict[
                         re.findall('([A-Z]*)\d*.\d*.tiff', image)[0]]
-            label = np.zeros(7)
-            label[pos] = 1
+            # label = np.zeros(7)
+            # label[pos] = 1
 
             images_paths.append(image)
-            images_labels.append(label)
+            images_labels.append(pos)
 
     return images_paths, images_labels
 
