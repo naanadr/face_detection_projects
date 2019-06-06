@@ -1,9 +1,15 @@
 # Facial_Expression_Recognition
 
+
 * To run this project:
 
-`docker run --name [name] -v [your_path_local/expression_recog]:/app/Workspace -it fernandaszadr/facial-expression-recognition`
+  `$ docker run --rm -it --name=facial-image -v $PWD/expression_recog:/app/Workspace fernandaszadr/facial-expression-recognition`
 
+* To run this project and use `cv2.imshow` (Linux user):
+
+  `$ xhost +`
+
+  `$ docker run --rm -it --name=facial-image --net=host --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $PWD/expression_recog:/app/Workspace fernandaszadr/facial-expression-recognition`
 
 * Label used to represent classes:
   * 0 -> Angry
@@ -16,4 +22,4 @@
 
 ### Steps executed in this project:
   * Detected face with Viola Jones (Haar classifier) implemented in OpenCV;
-  *
+  * 
