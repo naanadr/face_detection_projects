@@ -2,7 +2,6 @@
 
 import cv2
 import mahotas
-import numpy as np
 
 
 class ZernikeMoments:
@@ -10,22 +9,13 @@ class ZernikeMoments:
         self.radius = radius
 
     def describe(self, image):
+        image = self.segment_image(image)
         return mahotas.features.zernike_moments(image, self.radius)
 
     def segment_image(self, image):
-        thresh = cv2.bitwise_not(image)
-        thresh[thresh > 0] = 255
-
-        outline = np.zeros(image.shape, dtype="uint8")
-        cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                                   cv2.CHAIN_APPROX_SIMPLE)
-        cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
-        cv2.drawContours(outline, [cnts], -1, 255, -1)
-
-        cv2.imshow('image', image)
-        cv2.imshow('thresh', thresh)
-        cv2.imshow('outline', outline)
-        cv2.waitKey(0)
-        import ipdb; ipdb.set_trace()
-
-        return outline
+        image = cv2.copyMakeBorder(image, 10, 10, 10, 10,
+                                   cv2.BORDER_CONSTANT, value=0)
+        thresh = cv2.adaptiveThreshold(image, 255,
+                                       cv2.ADAPTIVE_THRESH_MEAN_C,
+                                       cv2.THRESH_BINARY_INV, 5, 8)
+        return thresh
