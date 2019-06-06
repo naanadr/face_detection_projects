@@ -3,6 +3,7 @@
 import cv2
 from helpers.read_jafee import read_samples
 from helpers.local_binary_pattern import LocalBinaryPatterns
+from helpers.zernike_moments import ZernikeMoments
 from sklearn.metrics import accuracy_score
 from sklearn.svm import LinearSVC
 
@@ -29,13 +30,18 @@ def get_face(file):
 
 
 def read_files(images):
-    descritor = LocalBinaryPatterns(12, 4)
+    descritor_lbp = LocalBinaryPatterns(12, 4)
+    descritor_zrnike = ZernikeMoments(21)
     datas = []
 
     for file in images:
         face = get_face(file)
         face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
-        histogram = descritor.describe(face)
+        histogram = descritor_lbp.describe(face)
+
+        outline = descritor_zrnike.segment_image(face)
+        moments = descritor_zrnike.describe(outline)
+        # todo: testar o parametro inicial e um metodo de limiarização
         datas.append(histogram)
 
     return datas
