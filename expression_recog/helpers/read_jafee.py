@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import numpy as np
 from pathlib import Path
 import random
 import re
@@ -37,8 +36,6 @@ def get_labels(paths, index):
             image = str(image)
             pos = labels_dict[
                         re.findall('([A-Z]*)\d*.\d*.tiff', image)[0]]
-            # label = np.zeros(7)
-            # label[pos] = 1
 
             images_paths.append(image)
             images_labels.append(pos)
@@ -46,7 +43,7 @@ def get_labels(paths, index):
     return images_paths, images_labels
 
 
-def read_samples():
+def read_samples_jafee():
     models_path = sorted(Path('./DataSets/JAFEE/').glob('*'))
     models_path = [x for x in models_path if x.is_dir()]
 
