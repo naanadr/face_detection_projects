@@ -11,7 +11,7 @@
 
   `$ docker run --rm -it --name=facial-image --net=host --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $PWD/expression_recog:/app/Workspace fernandaszadr/facial-expression-recognition`
 
-* Label used to represent classes:
+* Label used to represent classes in JAFEE dataset:
   * 0 -> Angry
   * 1 -> Disgust
   * 2 -> Fear
@@ -20,11 +20,26 @@
   * 5 -> Sad
   * 6 -> Surprise
 
+* Label used to represent classes in CK+ dataset:
+  * 0 -> neutral
+  * 1 -> anger
+  * 2 -> contempt
+  * 3 -> disgust
+  * 4 -> fear
+  * 5 -> happy
+  * 6 -> sadness
+  * 7 -> surprise
+
+----
+
 ### Steps executed in this project:
   * Detected face with Viola Jones (Haar classifier) implemented in OpenCV;
   * Apply histogram normalize;
   * Extract shape informations with Zernike Moments;
   * Extract texture information with Local Binary Patterns;
+  *
+
+---
 
 ### References:
   * [Local Binary Pattern in Scikit-Image](https://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.local_binary_pattern)
@@ -39,3 +54,5 @@
   * [(Faster) Facial landmark detector with dlib](https://www.pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/)
   * [Real-time facial landmark detection with OpenCV, Python, and dlib](https://www.pyimagesearch.com/2017/04/17/real-time-facial-landmark-detection-opencv-python-dlib/)
   * [Facial landmarks with dlib, OpenCV, and Python](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/)
+  * [Data augmentation : boost your image dataset with few lines of Python](https://medium.com/@thimblot/data-augmentation-boost-your-image-dataset-with-few-lines-of-python-155c2dc1baec)
+  * [Neural network models (supervised) Scikit-Learn](https://scikit-learn.org/stable/modules/neural_networks_supervised.html)
