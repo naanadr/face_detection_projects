@@ -12,9 +12,9 @@ class LocalBinaryPatterns:
     def describe(self, image, eps=1e-7):
         lbp = feature.local_binary_pattern(image, self.numPoints,
                                            self.radius, method="uniform")
-        (hist, _) = np.histogram(lbp.ravel(),
-                                 bins=np.arange(0, self.numPoints + 3),
-                                 range=(0, self.numPoints + 2))
+        n_bins = int(lbp.max() + 1)
+        (hist, _) = np.histogram(lbp.ravel(), density=True,
+                                 bins=n_bins, range=(0, n_bins))
 
         hist = hist.astype("float")
         hist /= (hist.sum() + eps)
