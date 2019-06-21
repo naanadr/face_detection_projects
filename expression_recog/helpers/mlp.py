@@ -7,7 +7,7 @@ from keras.regularizers import l2
 
 class MLP:
     def __init__(self, x_train=None, y_train=None, x_test=None, y_test=None,
-                 batch_size=8, num_classes=7, epochs=30):
+                 batch_size=16, num_classes=7, epochs=50):
         self.batch_size = batch_size
         self.num_classes = num_classes
         self.epochs = epochs
@@ -26,36 +26,32 @@ class MLP:
 
     def create_model(self):
         model = Sequential()
-        model.add(Dense(570, activation='relu',
+        model.add(Dense(382, activation='relu',
                         input_shape=(self.input_shape,),
                         kernel_initializer='uniform',
                         bias_initializer='normal',
-                        # bias_regularizer=l2(0.0001),
-                        kernel_regularizer=l2(1e-4),
+                        kernel_regularizer=l2(1e-5),
                         ))
-        model.add(Dropout((0.15)))
-        model.add(Dense(420, activation='relu',
-                        bias_regularizer=l2(1e-4),
-                        kernel_regularizer=l2(1e-4),
+        model.add(Dropout(0.2))
+        model.add(Dense(382, activation='relu',
+                        kernel_regularizer=l2(1e-5),
+                        bias_regularizer=l2(1e-5),
                         ))
-        model.add(Dense(420, activation='relu',
-                        kernel_regularizer=l2(1e-4),
-                        bias_regularizer=l2(1e-4),
+        model.add(Dropout(0.2))
+        model.add(Dense(424, activation='relu',
+                        kernel_regularizer=l2(1e-5),
+                        bias_regularizer=l2(1e-5),
                         ))
-        model.add(Dropout((0.15)))
-        model.add(Dense(38, activation='relu',
-                        kernel_regularizer=l2(1e-4),
-                        bias_regularizer=l2(1e-4),
-                        ))
+        model.add(Dropout(0.3))
         model.add(Dense(self.num_classes, activation='softmax'))
 
         self.model = model
 
     def compile_model(self):
         self.create_model()
-        sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
+        opt = SGD(lr=0.001, decay=1e-4, momentum=0.8, nesterov=True)
         self.model.compile(loss='categorical_crossentropy',
-                           optimizer=sgd,
+                           optimizer=opt,
                            metrics=['accuracy'])
 
     def fit_model(self):
