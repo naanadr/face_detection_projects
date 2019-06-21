@@ -25,7 +25,7 @@ class PatchesFace:
         self.name = 'outputs/{}.patches.jpg'.format(
                     re.findall('([A-Z0-9._]+).[pt]', file)[-1])
         self.shape = shape
-        self.descritor_lbp = LocalBinaryPatterns(8*2, 2)
+        self.descritor_lbp = LocalBinaryPatterns(8*3, 3)
         self.descritor_zernike = ZernikeMoments(8)
         self.size = (int(self.face.shape[0]/21), int(self.face.shape[1]/21))
 
@@ -51,6 +51,7 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
 
         self.paint_face(1, x, y, w, h)
 
@@ -64,6 +65,8 @@ class PatchesFace:
         x = x1 - w
         y = y1 - h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(2, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -73,6 +76,8 @@ class PatchesFace:
         w = self.size[0]
         h = self.size[1]
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(3, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -85,6 +90,8 @@ class PatchesFace:
         x = x1 + w
         y = y1 - h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(4, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -95,6 +102,8 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(5, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -105,6 +114,8 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(6, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -115,6 +126,8 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(7, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -126,6 +139,8 @@ class PatchesFace:
 
         y += h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(8, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -137,6 +152,8 @@ class PatchesFace:
 
         y += h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(9, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -158,6 +175,8 @@ class PatchesFace:
 
         y += h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(11, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -169,6 +188,8 @@ class PatchesFace:
 
         y += h
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(12, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -179,6 +200,8 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(13, x, y, w, h)
 
         return self.compute_descritors(roi)
@@ -189,12 +212,10 @@ class PatchesFace:
         h = self.size[1]
 
         roi = self.face[y-h: y + h, x-w: x + w]
+        roi = cv2.resize(roi, (40, 40))
+
         self.paint_face(14, x, y, w, h)
 
-        # cv2.imshow('roi', roi)
-        # cv2.imshow('face', self.copy_face)
-        # cv2.waitKey(0)
-        # import ipdb; ipdb.set_trace()
         return self.compute_descritors(roi)
 
     def patch_eyebrow(self):
